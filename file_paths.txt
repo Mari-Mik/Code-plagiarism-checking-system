@@ -1,0 +1,66 @@
+cloned_repos\awesome-machine-learning\scripts\pull_R_packages.py
+cloned_repos\Machine-Learning\AdaBoost\adaboost.py
+cloned_repos\Machine-Learning\AdaBoost\horse_adaboost.py
+cloned_repos\Machine-Learning\AdaBoost\ROC.py
+cloned_repos\Machine-Learning\AdaBoost\sklearn_adaboost.py
+cloned_repos\Machine-Learning\Decision Tree\Decision Tree.py
+cloned_repos\Machine-Learning\Decision Tree\Sklearn-Decision Tree.py
+cloned_repos\Machine-Learning\kNN\1.简单k-NN\kNN_test01.py
+cloned_repos\Machine-Learning\kNN\1.简单k-NN\kNN_test01_old_method.py
+cloned_repos\Machine-Learning\kNN\2.海伦约会\kNN_test02.py
+cloned_repos\Machine-Learning\kNN\3.数字识别\kNN_test03.py
+cloned_repos\Machine-Learning\kNN\3.数字识别\kNN_test04.py
+cloned_repos\Machine-Learning\Logistic\colicLogRegres.py
+cloned_repos\Machine-Learning\Logistic\LogRegres-gj.py
+cloned_repos\Machine-Learning\Logistic\LogRegres.py
+cloned_repos\Machine-Learning\Naive Bayes\bayes-modify.py
+cloned_repos\Machine-Learning\Naive Bayes\bayes.py
+cloned_repos\Machine-Learning\Naive Bayes\nbc.py
+cloned_repos\Machine-Learning\Regression\abalone.py
+cloned_repos\Machine-Learning\Regression\lego.py
+cloned_repos\Machine-Learning\Regression\regression.py
+cloned_repos\Machine-Learning\Regression\regression_old.py
+cloned_repos\Machine-Learning\Regression\lego\lego10030.html
+cloned_repos\Machine-Learning\Regression\lego\lego10179.html
+cloned_repos\Machine-Learning\Regression\lego\lego10181.html
+cloned_repos\Machine-Learning\Regression\lego\lego10189.html
+cloned_repos\Machine-Learning\Regression\lego\lego10196.html
+cloned_repos\Machine-Learning\Regression\lego\lego8288.html
+cloned_repos\Machine-Learning\Regression Trees\regTrees.py
+cloned_repos\Machine-Learning\SVM\svm-digits.py
+cloned_repos\Machine-Learning\SVM\svm-simple.py
+cloned_repos\Machine-Learning\SVM\svm-smo.py
+cloned_repos\Machine-Learning\SVM\svm-svc.py
+cloned_repos\Machine-Learning\SVM\svmMLiA.py
+cloned_repos\MachineLearning\DecisionTree\id3_c45.py
+cloned_repos\MachineLearning\DecisionTree\treePlotter.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\cnn_LeNet\convolutional_mlp.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\cnn_LeNet\convolutional_mlp_commentate.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\dive_into_keras\cnn-svm.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\dive_into_keras\cnn.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\dive_into_keras\data.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\dive_into_keras\get_feature_map.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\FaceRecognition_CNN(olivettifaces)\train_CNN_olivettifaces.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\FaceRecognition_CNN(olivettifaces)\use_CNN_olivettifaces.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\keras_usage\cnn.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\keras_usage\data.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\mlp\mlp.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\mlp\mlp_with_commentate.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\Softmax_sgd(or logistic_sgd)\logistic_sgd.py
+cloned_repos\MachineLearning\DeepLearning Tutorials\Softmax_sgd(or logistic_sgd)\logistic_sgd_commentate.py
+cloned_repos\MachineLearning\KMeans\kmeans.py
+cloned_repos\MachineLearning\KMeans\test.py
+cloned_repos\MachineLearning\kNN\use Python and NumPy\kNN.py
+cloned_repos\MachineLearning\logistic regression\use Python and NumPy\logistic regression.py
+cloned_repos\MachineLearning\ManifoldLearning\DimensionalityReduction_DataVisualizing\data_visualizing.py
+cloned_repos\MachineLearning\NaiveBayes\NaiveBayes.py
+cloned_repos\MachineLearning\NaiveBayes\test.py
+cloned_repos\MachineLearning\PCA\pca.py
+cloned_repos\MachineLearning\Ridge\kernel_ridge\kernel_ridge.py
+cloned_repos\MachineLearning\Ridge\kernel_ridge\run_kernel_ridge.py
+cloned_repos\MachineLearning\SVM\libsvm liblinear-usage\convert.c
+cloned_repos\MachineLearning\SVM\libsvm liblinear-usage\gen_datafile.py
+cloned_repos\MachineLearning\SVM\SVM_by_QP\SVCQP.py
+cloned_repos\MachineLearning\SVM\SVM_by_QP\testSVM.py
+cloned_repos\MachineLearning\SVM\SVM_by_SMO\SVCSMO.py
+cloned_repos\MachineLearning\SVM\SVM_by_SMO\testSVM-SMO.py
