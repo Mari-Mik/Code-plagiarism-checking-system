@@ -55,20 +55,22 @@ def create_faiss_index(embeddings, file_paths):
     return index, embeddings_np
 
 # Function to save the FAISS index to a file
-def save_faiss_index(index, file_name="code_index.faiss"):
+def save_faiss_index(index, file_name):
     faiss.write_index(index, file_name)
     print(f"Index saved to {file_name}")
 
-# Main function to process all code files and index them
+# Main function to process all code files and index them based on their extension
 def main():
     base_directory = "cloned_repos"  # Folder where the repositories are cloned
     model, tokenizer = load_codebert_model()  # Load the CodeBERT model and tokenizer
     
     code_files = find_code_files(base_directory)  # Find all code files
-    embeddings = []  # List to store embeddings
-    file_paths = []  # List to store file paths
     
-    # For each code file, compute the embedding
+    # Dictionary to hold embeddings and file paths for each file type
+    file_type_embeddings = {ext: [] for ext in CODE_EXTENSIONS}  # A dictionary to store embeddings for each file type
+    file_type_paths = {ext: [] for ext in CODE_EXTENSIONS}  # A dictionary to store file paths for each file type
+    
+    # For each code file, compute the embedding and store it by file type
     for file_path in code_files:
         print(f"Processing file: {file_path}")
         
@@ -78,23 +80,29 @@ def main():
         # Compute the embedding for the code file
         embedding = compute_embedding(code, model, tokenizer)
         
-        # Store the embedding and file path
-        embeddings.append(embedding)
-        file_paths.append(file_path)
+        # Determine the file extension (type)
+        file_extension = os.path.splitext(file_path)[1].lower()  # Get the file extension (e.g., .py, .html)
+        
+        if file_extension in file_type_embeddings:
+            file_type_embeddings[file_extension].append(embedding)
+            file_type_paths[file_extension].append(file_path)
     
-    # Create a FAISS index with the embeddings
-    index, embeddings_np = create_faiss_index(embeddings, file_paths)
-    
-    # Save the FAISS index to a file
-    save_faiss_index(index)
+    # Create and save separate FAISS indexes for each file type
+    for ext, embeddings in file_type_embeddings.items():
+        if embeddings:  # If there are any embeddings for this file type
+            print(f"Creating index for {ext} files...")
+            
+            # Create a FAISS index for the current file type
+            index, embeddings_np = create_faiss_index(embeddings, file_type_paths[ext])
+            
+            # Save the FAISS index to a file named based on the file type
+            save_faiss_index(index, f"{ext[1:].upper()}_index.faiss")  # Save as PY_index.faiss, HTML_index.faiss, etc.
+            
+            # Optionally, save the file paths corresponding to each embedding in a separate file for reference
+            with open(f"{ext[1:].upper()}_file_paths.txt", "w", encoding="utf-8") as f:
+                for file_path in file_type_paths[ext]:
+                    f.write(f"{file_path}\n")
 
-    # Optionally, save the file paths corresponding to each embedding in a separate file for reference
-    with open("file_paths.txt", "w", encoding="utf-8") as f:
-        for file_path in file_paths:
-            f.write(f"{file_path}\n")
-
-
-    
     print(f"Total code files indexed: {len(code_files)}")
 
 if __name__ == "__main__":

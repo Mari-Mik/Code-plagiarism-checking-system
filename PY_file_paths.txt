@@ -20,12 +20,6 @@ cloned_repos\Machine-Learning\Regression\abalone.py
 cloned_repos\Machine-Learning\Regression\lego.py
 cloned_repos\Machine-Learning\Regression\regression.py
 cloned_repos\Machine-Learning\Regression\regression_old.py
-cloned_repos\Machine-Learning\Regression\lego\lego10030.html
-cloned_repos\Machine-Learning\Regression\lego\lego10179.html
-cloned_repos\Machine-Learning\Regression\lego\lego10181.html
-cloned_repos\Machine-Learning\Regression\lego\lego10189.html
-cloned_repos\Machine-Learning\Regression\lego\lego10196.html
-cloned_repos\Machine-Learning\Regression\lego\lego8288.html
 cloned_repos\Machine-Learning\Regression Trees\regTrees.py
 cloned_repos\Machine-Learning\SVM\svm-digits.py
 cloned_repos\Machine-Learning\SVM\svm-simple.py
@@ -58,7 +52,6 @@ cloned_repos\MachineLearning\NaiveBayes\test.py
 cloned_repos\MachineLearning\PCA\pca.py
 cloned_repos\MachineLearning\Ridge\kernel_ridge\kernel_ridge.py
 cloned_repos\MachineLearning\Ridge\kernel_ridge\run_kernel_ridge.py
-cloned_repos\MachineLearning\SVM\libsvm liblinear-usage\convert.c
 cloned_repos\MachineLearning\SVM\libsvm liblinear-usage\gen_datafile.py
 cloned_repos\MachineLearning\SVM\SVM_by_QP\SVCQP.py
 cloned_repos\MachineLearning\SVM\SVM_by_QP\testSVM.py
