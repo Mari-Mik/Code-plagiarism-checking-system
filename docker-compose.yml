@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  # Embedding server service (Microservice1)
+  embedding-server:
+    build:
+      context: ./Microservice1  # Path to Microservice1 folder
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"  # Expose port 5001 for embedding server
+    networks:
+      - plagiarism-net
+
+  # Plagiarism checking API service (Microservice2)
+  plagiarism-api:
+    build:
+      context: ./Microservice2  # Path to Microservice2 folder
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"  # Expose port 8000 for plagiarism checking API
+    depends_on:
+      - embedding-server  # Ensure embedding server starts before plagiarism API
+    networks:
+      - plagiarism-net
+
+# Create a custom network for the services to communicate
+networks:
+  plagiarism-net:
+    driver: bridge

@@ -1,6 +1,0 @@
-python
-requests
-git
-pip install faiss-cpu torch transformers
-pip install transformers torch
-----python compute_code_embeddings.py
