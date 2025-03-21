@@ -12,14 +12,11 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install FastAPI, Uvicorn, PyTorch, Faiss, and other dependencies
-#RUN pip install fastapi uvicorn requests torch faiss-cpu numpy
-
-# Install other Python dependencies from requirements.txt (if any)
-RUN pip install -r requirements.txt
+# Install dependencies from requirements.txt
+RUN pip install -r /app/requirements.txt
 
 # Expose the port that the plagiarism checking API runs on
 EXPOSE 8000
 
 # Command to run the plagiarism checking API
-CMD ["uvicorn", "plagiarism_check_api:app", "--reload"]
+CMD ["uvicorn", "plagiarism_check_api:app", "--host", "127.0.0.1", "--port", "8000"]

@@ -31,3 +31,4 @@ def embed_code(snippet: CodeSnippet):
     return {"embedding": embedding}
 
 # To run the app: uvicorn embedding_server:app --reload
+# uvicorn embedding_server:app --host 127.0.0.1 --port 5001 --reload

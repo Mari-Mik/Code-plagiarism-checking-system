@@ -3,69 +3,64 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import requests
 import numpy as np
-
+import os
 
 # FastAPI app
 app = FastAPI()
 
-# Load FAISS index
-index = faiss.read_index("PY_index.faiss")
-embeddings_dim = index.d  # Get the dimensionality of the embeddings
+# Define FAISS index paths
+FAISS_INDEX_PATHS = {
+    "python": "/app/PY_index.faiss",
+    "html": "/app/HTML_index.faiss",
+    "c": "/app/C_index.faiss"
+}
 
-# OpenAI API (Use your API key)
-openai_api_key = "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" 
+# Function to load the FAISS index based on code type
+def load_faiss_index(code_type: str):
+    if code_type in FAISS_INDEX_PATHS:
+        index_path = FAISS_INDEX_PATHS[code_type]
+        if os.path.exists(index_path):
+            print(f"✅ Loading {code_type} index from {index_path}...")
+            return faiss.read_index(index_path)
+        else:
+            raise FileNotFoundError(f"❌ {code_type} index not found at {index_path}")
+    else:
+        raise ValueError(f"❌ Unknown code type: {code_type}")
 
-# Request model
+# Request model for code snippet
 class CodeSnippet(BaseModel):
     code: str
+    code_type: str  # Add code_type to determine which index to use
 
-
-
-# Function to call the embedding server
+# Function to get embeddings from the embedding server
 def get_embedding_from_server(code):
-    response = requests.post("http://embedding-server:5001/compute_embedding/", json={"code": code})
+    response = requests.post("http://embedding-server:5001/embed/", json={"code": code})
     if response.status_code == 200:
-        return np.array(response.json()["embedding"]).astype('float32')
+        return np.array(response.json()["embedding"]).astype("float32")
     else:
         raise Exception("Error fetching embedding from embedding server")
-    
-    
-# Function to find similar code snippets using FAISS
-def find_similar_code(embedding):
-    embedding = np.array(embedding).astype('float32').reshape(1, embeddings_dim)  # Reshape to match the index dimensionality
-    _, indices = index.search(embedding, k=3)  # Search for top 3 most similar code snippets
+
+# Function to find similar code using the correct FAISS index
+def find_similar_code(embedding, code_type: str, k: int = 3):
+    # Load the corresponding FAISS index based on code type
+    index = load_faiss_index(code_type)
+    embedding = np.array(embedding).astype('float32').reshape(1, -1)  # Reshape to match index dimensionality
+    _, indices = index.search(embedding, k)  # Search for the top k most similar code snippets
     return indices.tolist()
 
-# Call OpenAI API to evaluate plagiarism
-def check_plagiarism_with_openai(code, similar_code_files):
-    context = "\n".join([f"Code snippet:\n{code}\n\nSimilar code:\n{similar_code}" for similar_code in similar_code_files])
-    prompt = f"Given the following code and similar code snippets, is the code plagiarized? Answer with 'Yes' or 'No'. Also provide the references."
-    
-    response = requests.post(
-        "https://api.openai.com/v1/completions",
-        headers={"Authorization": f"Bearer {openai_api_key}"},
-        json={
-            "model": "text-davinci-003",  # Or any LLM model you're using
-            "prompt": prompt,
-            "max_tokens": 50,
-        },
-    )
-    return response.json()
-
+# Endpoint to check plagiarism
 @app.post("/check_plagiarism/")
-def check_plagiarism(snippet: CodeSnippet):
-    # Call embedding server to get embedding for the code
+def check_plagiarism(snippet: CodeSnippet, k: int = 3):
+    # Get the embedding for the provided code snippet
     embedding = get_embedding_from_server(snippet.code)
-    similar_code_indices = find_similar_code(embedding)
     
-    # Get similar code from the vector base (you can extract file paths or use metadata if necessary)
-    similar_code_files = ["path/to/similar/code1", "path/to/similar/code2"]  # Use the actual paths from FAISS index
-
-    # Check with OpenAI if the code is plagiarized
-    plagiarism_result = check_plagiarism_with_openai(snippet.code, similar_code_files)
+    # Find similar code using the corresponding FAISS index
+    similar_code_indices = find_similar_code(embedding, snippet.code_type, k)
     
-    # Extract "Yes" or "No" response
-    is_plagiarized = "Yes" if "Yes" in plagiarism_result['choices'][0]['text'] else "No"
-    return {"plagiarism": is_plagiarized, "references": similar_code_files}
+    # Get similar code files from the FAISS index (Here, you may have metadata associated with your index files)
+    similar_code_files = [f"path/to/similar/code{index}" for index in similar_code_indices]
+    
+    return {"similar_code_indices": similar_code_indices, "similar_code_files": similar_code_files}
 
-# uvicorn plagiarism_check_api:app --reload
+# To run the app: uvicorn plagiarism_check_api:app --reload
+# uvicorn embedding_server:app --host 127.0.0.1 --port 8000 --reload

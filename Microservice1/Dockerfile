@@ -4,22 +4,24 @@ FROM python:3.8-slim
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Ensure the FAISS index file is copied
+COPY PY_index.faiss /app/PY_index.faiss
 
-# Install system dependencies (if any)
+# Copy the requirements.txt file to the container
+COPY requirements.txt /app/requirements.txt
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install PyTorch, Faiss, and other dependencies for the embedding server
-RUN pip install torch faiss-cpu numpy transformers
+RUN pip install --timeout=300 -r /app/requirements.txt
 
-# Install other Python dependencies from requirements.txt (if any)
-RUN pip install -r requirements.txt
+# Install dependencies from requirements.txt
+#RUN pip install -r /app/requirements.txt
 
-# Expose the port that the embedding server runs on
+# Expose the port
 EXPOSE 5001
 
-# Command to run the embedding server (adjust this to your actual script name)
-CMD ["python", "embedding_server.py"]
+# Run the embedding server
+CMD ["uvicorn", "embedding_server:app", "--host", "127.0.0.1", "--port", "5001", "--reload"]
