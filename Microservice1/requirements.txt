@@ -1,8 +1,8 @@
-fastapi
-uvicorn
-faiss-cpu  # or faiss-gpu if you're using GPU
-numpy
-requests
-pydantic
-torch
-transformers
+fastapi==0.110.0
+uvicorn==0.29.0
+faiss-cpu==1.7.4.post2  
+numpy==1.26.4
+requests==2.31.0
+pydantic==2.6.4
+transformers==4.39.3
+torch==2.2.1
